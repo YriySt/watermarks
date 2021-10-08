@@ -26,7 +26,7 @@ class ImageController extends Controller
         $watermark = Image::make(Storage::get($watermarkUrl))->trim('bottom-right', ['top', 'bottom', 'left', 'right'], 25);
         $watermark->resize(100, 50);
         $watermark->rotate(20);
-        $image->insert($watermark, 'center', 20, 20);
+        $image->insert($watermark, 'center');
         $image->save(Storage::path($input_image));
         $imageUrl = Storage::url($input_image);
 
@@ -55,12 +55,12 @@ class ImageController extends Controller
         $countRed = 0;
         $countBlue = 0;
 
-        $width = $image->width();
-        $height = $image->height();
+        $width = ($image->width() / 100) * 90;
+        $height = ($image->height() / 100) * 90;
         $allIteration = 0;
         for($i = 0; $i < $width; $i++){
             for($b = 0; $b < $height; $b++) {
-                $pixelColor = $image->pickColor($b, $i, 'array');
+                $pixelColor = $image->pickColor($i, $b, 'array');
                 $allIteration += 1;
                 if ($pixelColor[0] > $pixelColor[1] && $pixelColor[0] > $pixelColor[2]) {
                     $countRed += 1;

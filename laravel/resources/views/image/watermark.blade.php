@@ -4,7 +4,7 @@
 
 <body>
 <div class="main-block">
-    <img src="{{asset($output_image)}}">
+    <img src="{{asset($output_image)}}" width="800" height="500">
 </div>
 <div class="back-to">
     <br>
